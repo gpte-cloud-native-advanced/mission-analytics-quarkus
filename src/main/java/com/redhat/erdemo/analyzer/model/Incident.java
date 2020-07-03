@@ -1,3 +1,8 @@
+package com.redhat.erdemo.analyzer.model;
+
+import java.math.BigDecimal;
+import java.util.Objects;
+
 public class Incident {
 
     @Id

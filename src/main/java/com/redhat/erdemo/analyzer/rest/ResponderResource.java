@@ -1,4 +1,4 @@
-package com.redhat.erdemo.responder.rest;
+package com.redhat.erdemo.analyzer.rest;
 
 import java.util.List;
 import java.util.Optional;

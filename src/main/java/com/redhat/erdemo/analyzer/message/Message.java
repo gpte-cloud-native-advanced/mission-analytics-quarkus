@@ -1,4 +1,4 @@
-package com.redhat.erdemo.responder.message;
+package com.redhat.erdemo.analyzer.message;
 
 import java.util.HashMap;
 import java.util.Map;

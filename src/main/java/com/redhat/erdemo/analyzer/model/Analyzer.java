@@ -1,4 +1,4 @@
-package com.redhat.erdemo.responder.model;
+package com.redhat.erdemo.analyzer.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;

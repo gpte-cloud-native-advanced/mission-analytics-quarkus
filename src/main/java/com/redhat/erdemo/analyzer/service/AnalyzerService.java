@@ -1,4 +1,4 @@
-package com.redhat.erdemo.responder.service;
+package com.redhat.erdemo.analyzer.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
-public class ResponderService {
+public class AnalyzerService {
 
     private static final Logger log = LoggerFactory.getLogger(ResponderService.class);
 

@@ -1,4 +1,4 @@
-package com.redhat.erdemo.responder.service;
+package com.redhat.erdemo.analyzer.service;
 
 import java.util.List;
 import java.util.Map;

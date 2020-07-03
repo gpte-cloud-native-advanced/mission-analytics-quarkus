@@ -1,4 +1,4 @@
-package com.redhat.erdemo.responder.consumer;
+package com.redhat.erdemo.analyzer.consumer;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
@@ -6,8 +6,8 @@ import java.util.concurrent.CompletionStage;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import com.redhat.erdemo.responder.model.Responder;
-import com.redhat.erdemo.responder.service.ResponderService;
+import com.redhat.erdemo.analyzer.model.Responder;
+import com.redhat.erdemo.analyzer.rest.ResponderService;
 import io.smallrye.reactive.messaging.kafka.IncomingKafkaRecord;
 import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
@@ -39,8 +39,8 @@ public class AnalyzerMissionEventSource {
                 // String status = json.getString("status");
 
 		    //Call incidentById(@PathParam("id") String incidentId) 
-		    IncidentsResource incidentsResource;
-		    incidentsResource.incidentById(json.getString("incidentId"));
+		    IncidentResource incidentResource;
+		    incidentResource.incidentById(json.getString("incidentId"));
 		    
 		    //Call /responder/{id}
 		    ResponderResource responderResource;

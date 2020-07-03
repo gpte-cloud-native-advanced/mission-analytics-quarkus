@@ -1,4 +1,4 @@
-package com.redhat.erdemo.responder.rest;
+package com.redhat.erdemo.analyzer.rest;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.redhat.erdemo.responder.model.Responder;
-import com.redhat.erdemo.responder.service.ResponderService;
 
 @Path("/")
 @RegisterRestClient
