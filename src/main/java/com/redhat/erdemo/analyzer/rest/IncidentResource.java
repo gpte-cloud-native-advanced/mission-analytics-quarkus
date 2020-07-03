@@ -14,7 +14,7 @@ public class IncidentResource {
 
     @Inject
     @RestClient
-    IncidentsService incidentsService;
+    IncidentService incidentsService;
 
     @GET
     @Path("/incident/{id}")

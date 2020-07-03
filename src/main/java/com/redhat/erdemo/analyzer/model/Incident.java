@@ -2,6 +2,7 @@ package com.redhat.erdemo.analyzer.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.time.Instant;
 
 public class Incident {
 

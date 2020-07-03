@@ -15,7 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.redhat.erdemo.responder.model.Responder;
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import com.redhat.erdemo.analyzer.model.Responder;
 
 @Path("/")
 @RegisterRestClient

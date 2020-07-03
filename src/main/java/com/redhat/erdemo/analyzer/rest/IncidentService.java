@@ -15,6 +15,8 @@ import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.mutiny.core.eventbus.EventBus;
 
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+
 @Path("/incidents")
 @RegisterRestClient
 public interface IncidentService {
