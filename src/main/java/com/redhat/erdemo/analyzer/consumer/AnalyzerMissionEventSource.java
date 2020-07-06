@@ -84,15 +84,16 @@ public class AnalyzerMissionEventSource {
         });
     }
 
-    @Outgoing("responder-event")
-    private void publishToKafka(Analyzer analyzer) {
+    @Outgoing("topic-mission-enhanced-event")
+    private Analyzer publishToKafka(Analyzer analyzer) {
+	/*
         String json = "";
         try {
             json = new ObjectMapper().writeValue(analyzer);
         } catch (JsonProcessingException e) {
             log.error("Error serializing message to class Analyzer", e);
         }
-	KafkaRecord.of(pair.getLeft(), json);
-	return void;
+	*/
+	return analyzer;
     }
 }
