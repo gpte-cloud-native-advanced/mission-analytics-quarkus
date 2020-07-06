@@ -15,6 +15,25 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.core.Response;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.redhat.erdemo.responder.message.Message;
+import com.redhat.erdemo.responder.message.ResponderUpdatedEvent;
+import com.redhat.erdemo.responder.message.RespondersCreatedEvent;
+import com.redhat.erdemo.responder.message.RespondersDeletedEvent;
+import com.redhat.erdemo.responder.model.Responder;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.operators.multi.processors.UnicastProcessor;
+import io.smallrye.reactive.messaging.kafka.KafkaRecord;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @ApplicationScoped
 public class AnalyzerMissionEventSource {
 
@@ -44,7 +63,8 @@ public class AnalyzerMissionEventSource {
 		    
 		    //Call /responder/{id}
 		    ResponderResource responderResource;
-		    responderResource.responder(json.getString("responderId"));
+		    Response response = responderResource.responder(json.getString("responderId"));
+		    Responder responder = response.readEntity(Responder.class);
 
 		    Analyzer analyzer = new Analyzer.Builder(responderId).latitude(lat).longitude(lon).build();
 		    // log.debug("Processing 'ResponderUpdateLocationEvent' message for responder '" + responder.getId()
@@ -53,6 +73,7 @@ public class AnalyzerMissionEventSource {
                     //responderService.updateResponderLocation(responder);
 
 		    //Publish the aggregated mission event
+		    publishToKafka(analyzer);
 		    
                 }
 
@@ -63,4 +84,15 @@ public class AnalyzerMissionEventSource {
         });
     }
 
+    @Outgoing("responder-event")
+    private void publishToKafka(Analyzer analyzer) {
+        String json = "";
+        try {
+            json = new ObjectMapper().writeValue(analyzer);
+        } catch (JsonProcessingException e) {
+            log.error("Error serializing message to class Analyzer", e);
+        }
+	KafkaRecord.of(pair.getLeft(), json);
+	return void;
+    }
 }
