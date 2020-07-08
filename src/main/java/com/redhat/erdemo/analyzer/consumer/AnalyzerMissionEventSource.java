@@ -59,18 +59,16 @@ public class AnalyzerMissionEventSource {
 
 		    //Call incidentById(@PathParam("id") String incidentId) 
 		    IncidentResource incidentResource;
-		    incidentResource.incidentById(json.getString("incidentId"));
+		    Incident incident = incidentResource.incidentById(json.getString("incidentId"));
 		    
 		    //Call /responder/{id}
 		    ResponderResource responderResource;
-		    Response response = responderResource.responder(json.getString("responderId"));
-		    Responder responder = response.readEntity(Responder.class);
+		    Responder responder = responderResource.responder(json.getString("responderId"));
 
 		    Analyzer analyzer = new Analyzer.Builder(responderId).latitude(lat).longitude(lon).build();
 		    // log.debug("Processing 'ResponderUpdateLocationEvent' message for responder '" + responder.getId()
                     //        + "' from topic:partition:offset " + message.getTopic() + ":" + message.getPartition()
 		    //      + ":" + message.getOffset());
-                    //responderService.updateResponderLocation(responder);
 
 		    //Publish the aggregated mission event
 		    publishToKafka(analyzer);
@@ -84,16 +82,15 @@ public class AnalyzerMissionEventSource {
         });
     }
 
+
     @Outgoing("topic-mission-enhanced-event")
-    private Analyzer publishToKafka(Analyzer analyzer) {
-	/*
+    private Flowable<String> publishToKafka(Analyzer analyzer) {               
         String json = "";
         try {
             json = new ObjectMapper().writeValue(analyzer);
         } catch (JsonProcessingException e) {
             log.error("Error serializing message to class Analyzer", e);
         }
-	*/
-	return analyzer;
+        return Flowable.map(json);
     }
 }
