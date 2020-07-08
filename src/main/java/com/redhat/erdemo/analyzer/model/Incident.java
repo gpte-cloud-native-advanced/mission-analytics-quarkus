@@ -6,40 +6,26 @@ import java.time.Instant;
 
 public class Incident {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator="ReportedIncidentSeq")
     private long id;
 
-    @Column(name = "incident_id")
     private String incidentId;
 
-    @Column(name = "latitude")
     private String latitude;
 
-    @Column(name = "longitude")
     private String longitude;
 
-    @Column(name = "number_of_people")
     private int numberOfPeople;
 
-    @Column(name = "medical_needed")
     private boolean medicalNeeded;
 
-    @Column(name = "victim_name")
     private String victimName;
 
-    @Column(name = "victim_phone")
     private String victimPhoneNumber;
 
-    @Basic
-    @Column(name = "reported_time")
     private Instant reportedTime;
 
-    @Column(name = "incident_status")
     private String status;
 
-    @Column(name = "version")
-    @Version
     private long version;
 
     public long getId() {

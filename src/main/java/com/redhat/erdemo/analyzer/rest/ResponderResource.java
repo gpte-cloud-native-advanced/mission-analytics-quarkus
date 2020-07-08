@@ -14,9 +14,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import com.redhat.erdemo.responder.model.Responder;
-import com.redhat.erdemo.responder.service.ResponderService;
+import com.redhat.erdemo.analyzer.model.Responder;
 
 @Path("/")
 public class ResponderResource {

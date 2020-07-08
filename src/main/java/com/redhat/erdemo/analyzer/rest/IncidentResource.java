@@ -8,6 +8,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Set;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import io.smallrye.mutiny.Uni;
+
+import javax.ws.rs.core.Response;
+
 
 @Path("/incidents")
 public class IncidentResource {
