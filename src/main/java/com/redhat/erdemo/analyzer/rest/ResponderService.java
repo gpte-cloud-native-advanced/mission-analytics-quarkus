@@ -25,7 +25,7 @@ public interface ResponderService {
     @GET
     @Path("/responder/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    Response responder(@PathParam("id") long id);
+    Responder responder(@PathParam("id") long id);
 
 }
 

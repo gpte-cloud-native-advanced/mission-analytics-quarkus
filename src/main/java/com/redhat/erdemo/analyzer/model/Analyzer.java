@@ -41,7 +41,7 @@ public class Analyzer {
 
     // mission getters
     public String getId() {
-        return id;
+        return missionId;
     }
 
     public String getName() {
@@ -108,7 +108,7 @@ public class Analyzer {
 
         public Builder(String id) {
             this.analyzer = new Analyzer();
-            analyzer.id = id;
+            analyzer.missionId = id;
         }
 
         public Builder name(String name) {

@@ -28,7 +28,7 @@ public class ResponderResource {
     @GET
     @Path("/responder/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response responder(@PathParam("id") long id) {
+    public Responder responder(@PathParam("id") long id) {
         return responderService.responder(id);
     }
 }

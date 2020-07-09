@@ -3,6 +3,8 @@ package com.redhat.erdemo.analyzer.consumer;
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -10,6 +12,7 @@ import com.redhat.erdemo.analyzer.model.Responder;
 import com.redhat.erdemo.analyzer.model.Analyzer;
 import com.redhat.erdemo.analyzer.model.Incident;
 import com.redhat.erdemo.analyzer.rest.IncidentResource;
+import com.redhat.erdemo.analyzer.rest.ResponderResource;
 import io.smallrye.reactive.messaging.kafka.IncomingKafkaRecord;
 import io.vertx.core.json.JsonObject;
 import io.reactivex.Flowable;
@@ -40,7 +43,11 @@ public class AnalyzerMissionEventSource {
 
     @Inject
     AnalyzerMissionEventSource analyzerService;
-
+    Analyzer analyzer=null;
+    String objJson = "";
+    
+    private String getObjJson() { return objJson;}
+    
     // Handles incoming Kafka events - this code will change when Knative Eventing is introduced
     @Incoming("topic-mission-event")
     @Acknowledgment(Acknowledgment.Strategy.MANUAL)
@@ -52,25 +59,26 @@ public class AnalyzerMissionEventSource {
 
                 if (missionId != null) /* && "MOVING".equalsIgnoreCase(status))*/ {
 
-                // BigDecimal lat = json.getDouble("lat") != null ? BigDecimal.valueOf(json.getDouble("lat")) : null;
-                // BigDecimal lon = json.getDouble("lon") != null ? BigDecimal.valueOf(json.getDouble("lon")) : null;
-                // String status = json.getString("status");
 
 		    //Call incidentById(@PathParam("id") String incidentId) 
-		    IncidentResource incidentResource;
+		    IncidentResource incidentResource = null;
 		    Incident incident = incidentResource.incidentById(json.getString("incidentId"));
-		    
-		    //Call /responder/{id}
-		    ResponderResource responderResource;
-		    Responder responder = responderResource.responder(json.getString("responderId"));
 
-		    Analyzer analyzer = new Analyzer.Builder(responderId).latitude(lat).longitude(lon).build();
+		    //Call /responder/{id}
+		    ResponderResource responderResource = null;
+		    Responder responder = responderResource.responder(json.getLong("responderId"));
+
+		    String incidentId = json.getString("incidentId");
+		    String responderId = json.getString("responderId");
+		    BigDecimal lat = json.getDouble("lat") != null ? BigDecimal.valueOf(json.getDouble("lat")) : null;
+		    BigDecimal lon = json.getDouble("lon") != null ? BigDecimal.valueOf(json.getDouble("lon")) : null;
+		    analyzer = new Analyzer.Builder(responderId).latitude(lat).longitude(lon).build();
 		    // log.debug("Processing 'ResponderUpdateLocationEvent' message for responder '" + responder.getId()
                     //        + "' from topic:partition:offset " + message.getTopic() + ":" + message.getPartition()
 		    //      + ":" + message.getOffset());
 
 		    //Publish the aggregated mission event
-		    publishToKafka(analyzer);
+		    publishToKafka();
 		    
                 }
 
@@ -81,15 +89,13 @@ public class AnalyzerMissionEventSource {
         });
     }
 
-
     @Outgoing("topic-mission-enhanced-event")
-    private Flowable<String> publishToKafka(Analyzer analyzer) {               
-        String json = "";
+    private Flowable<String> publishToKafka() {               
         try {
-            json = new ObjectMapper().writeValue(analyzer);
+            objJson = new ObjectMapper().writeValueAsString(analyzer);
         } catch (JsonProcessingException e) {
             log.error("Error serializing message to class Analyzer", e);
         }
-        return Flowable.map(json);
+        return Flowable.interval(5, TimeUnit.SECONDS).map(tick -> getObjJson());
     }
 }

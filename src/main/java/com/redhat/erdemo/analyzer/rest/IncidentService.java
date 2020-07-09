@@ -16,6 +16,8 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.mutiny.core.eventbus.EventBus;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import com.redhat.erdemo.analyzer.model.Incident;
+
 
 @Path("/incidents")
 @RegisterRestClient
@@ -24,5 +26,5 @@ public interface IncidentService {
     @GET
     @Path("/incident/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    Uni<Response> incidentById(@PathParam("id") String incidentId);
+    Incident incidentById(@PathParam("id") String incidentId);
 }
