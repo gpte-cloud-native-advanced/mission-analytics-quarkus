@@ -16,6 +16,7 @@ import com.redhat.erdemo.analyzer.rest.ResponderResource;
 import io.smallrye.reactive.messaging.kafka.IncomingKafkaRecord;
 import io.vertx.core.json.JsonObject;
 import io.reactivex.Flowable;
+
 import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import com.redhat.erdemo.analyzer.message.Message;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.operators.multi.processors.UnicastProcessor;
 import io.smallrye.reactive.messaging.kafka.KafkaRecord;
+import io.smallrye.reactive.messaging.annotations.Broadcast;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
@@ -41,61 +43,71 @@ public class AnalyzerMissionEventSource {
 
     private final static Logger log = LoggerFactory.getLogger(AnalyzerMissionEventSource.class);
 
-    @Inject
-    AnalyzerMissionEventSource analyzerService;
+    //    @Inject
     Analyzer analyzer=null;
     String objJson = "";
+    private static final double CONVERSION_RATE = 70;
     
     private String getObjJson() { return objJson;}
+
+    @Incoming("mission-event")
+    @Outgoing("mission-enhanced-event")
+    @Broadcast
+    public String process(String payload) {
+	log.info("Processing 'topic-mission-event' for analytics service ");
+        return payload;
+    }
     
     // Handles incoming Kafka events - this code will change when Knative Eventing is introduced
-    @Incoming("topic-mission-event")
-    @Acknowledgment(Acknowledgment.Strategy.MANUAL)
-    public CompletionStage<CompletionStage<Void>> onMessage(IncomingKafkaRecord<String, String> message) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                JsonObject json = new JsonObject(message.getPayload());
-                String missionId = json.getString("missionId");
+    // @Incoming("topic-mission-event")
+    // @Acknowledgment(Acknowledgment.Strategy.MANUAL)
+    // public CompletionStage<CompletionStage<Void>> onMessage(IncomingKafkaRecord<String, String> message) {
+    //     return CompletableFuture.supplyAsync(() -> {
+    //         try {
+    //             JsonObject json = new JsonObject(message.getPayload());
+    //             String missionId = json.getString("missionId");
 
-                if (missionId != null) /* && "MOVING".equalsIgnoreCase(status))*/ {
+    //             if (missionId != null) /* && "MOVING".equalsIgnoreCase(status))*/ {
 
+    // 		    log.info("Processing 'topic-mission-event' for analytics service " + missionId);
 
-		    //Call incidentById(@PathParam("id") String incidentId) 
-		    IncidentResource incidentResource = null;
-		    Incident incident = incidentResource.incidentById(json.getString("incidentId"));
+    // 		    //Call incidentById(@PathParam("id") String incidentId) 
+    // 		    IncidentResource incidentResource = new IncidentResource();
+    // 		    Incident incident = incidentResource.incidentById(json.getString("incidentId"));
 
-		    //Call /responder/{id}
-		    ResponderResource responderResource = null;
-		    Responder responder = responderResource.responder(json.getLong("responderId"));
+    // 		    // //Call /responder/{id}
+    // 		    ResponderResource responderResource = new ResponderResource();
+    // 		    Responder responder = responderResource.responder(json.getLong("responderId"));
 
-		    String incidentId = json.getString("incidentId");
-		    String responderId = json.getString("responderId");
-		    BigDecimal lat = json.getDouble("lat") != null ? BigDecimal.valueOf(json.getDouble("lat")) : null;
-		    BigDecimal lon = json.getDouble("lon") != null ? BigDecimal.valueOf(json.getDouble("lon")) : null;
-		    analyzer = new Analyzer.Builder(responderId).latitude(lat).longitude(lon).build();
-		    // log.debug("Processing 'ResponderUpdateLocationEvent' message for responder '" + responder.getId()
-                    //        + "' from topic:partition:offset " + message.getTopic() + ":" + message.getPartition()
-		    //      + ":" + message.getOffset());
+    // 		    String incidentId = json.getString("incidentId");
+    // 		    String responderId = json.getString("responderId");
+    // 		    BigDecimal lat = json.getDouble("lat") != null ? BigDecimal.valueOf(json.getDouble("lat")) : null;
+    // 		    BigDecimal lon = json.getDouble("lon") != null ? BigDecimal.valueOf(json.getDouble("lon")) : null;
+    // 		    analyzer = new Analyzer.Builder(responderId).latitude(lat).longitude(lon).build();
+    // 		    // log.debug("Processing 'ResponderUpdateLocationEvent' message for responder '" + responder.getId()
+    //                 //        + "' from topic:partition:offset " + message.getTopic() + ":" + message.getPartition()
+    // 		    //      + ":" + message.getOffset());
 
-		    //Publish the aggregated mission event
-		    publishToKafka();
+    // 		    // Knative Eventing option: write to an Eventing channel, using a REST call and the channel internally will post that event to a Knative broker or service
 		    
-                }
+    //             }
 
-            } catch (Exception e) {
-                log.warn("Unexpected message structure: " + message.getPayload());
-            }
-            return message.ack();
-        });
-    }
+    //         } catch (Exception e) {
+    //             log.warn("Unexpected message structure: " + message.getPayload());
+    //         }
+    //         return message.ack();
+    //     });
+    // }
 
-    @Outgoing("topic-mission-enhanced-event")
-    private Flowable<String> publishToKafka() {               
-        try {
-            objJson = new ObjectMapper().writeValueAsString(analyzer);
-        } catch (JsonProcessingException e) {
-            log.error("Error serializing message to class Analyzer", e);
-        }
-        return Flowable.interval(5, TimeUnit.SECONDS).map(tick -> getObjJson());
-    }
+    // private Flowable<String> publishToKafka() {               
+
+    //     try {
+    //         objJson = new ObjectMapper().writeValueAsString(analyzer);
+    //     } catch (JsonProcessingException e) {
+    //         log.error("Error serializing message to class Analyzer", e);
+    //     }
+
+    //     return Flowable.interval(5, TimeUnit.SECONDS).map(tick -> getObjJson());
+    // }
+    
 }
