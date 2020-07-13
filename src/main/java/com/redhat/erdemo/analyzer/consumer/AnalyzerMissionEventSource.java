@@ -54,7 +54,7 @@ public class AnalyzerMissionEventSource {
     @Outgoing("mission-enhanced-event")
     @Broadcast
     public String process(String payload) {
-	log.info("Processing 'topic-mission-event' for analytics service ");
+	log.info("Processing 'topic-mission-event' for analytics service "+payload);
         return payload;
     }
     
