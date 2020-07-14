@@ -11,8 +11,8 @@ import javax.inject.Inject;
 import com.redhat.erdemo.analyzer.model.Responder;
 import com.redhat.erdemo.analyzer.model.Analyzer;
 import com.redhat.erdemo.analyzer.model.Incident;
-import com.redhat.erdemo.analyzer.rest.IncidentResource;
-import com.redhat.erdemo.analyzer.rest.ResponderResource;
+import com.redhat.erdemo.analyzer.rest.IncidentService;
+import com.redhat.erdemo.analyzer.rest.ResponderService;
 import io.smallrye.reactive.messaging.kafka.IncomingKafkaRecord;
 import io.vertx.core.json.JsonObject;
 import io.reactivex.Flowable;
@@ -44,14 +44,13 @@ public class AnalyzerMissionEventSource {
 
     @Inject
     @RestClient
-    IncidentResource incidentResource;
+    IncidentService incidentService;
 
     @Inject
     @RestClient
-    ResponderResource responderResource;
+    ResponderService responderService;
     
     Analyzer analyzer=null;
-    String objJson = "";
     
     @Incoming("mission-event")
     @Outgoing("mission-enhanced-event")
@@ -73,10 +72,10 @@ public class AnalyzerMissionEventSource {
 	log.info("Incident ID= "+incidentId+" ResponderId= "+responderId+ "\n");
 
 	// Call incidentById
-	Incident incident = incidentResource.incidentById(incidentId);
+	Incident incident = incidentService.incidentById(incidentId);
 
 	//Call responder/{id}
-	Responder responder = responderResource.responder(Long.parseLong(responderId));
+	Responder responder = responderService.responder(Long.parseLong(responderId));
 
 
 	return payload;
