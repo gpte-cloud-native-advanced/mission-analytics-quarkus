@@ -18,7 +18,6 @@ import io.vertx.mutiny.core.eventbus.EventBus;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import com.redhat.erdemo.analyzer.model.Incident;
 
-
 @Path("/incidents")
 @RegisterRestClient
 public interface IncidentService {

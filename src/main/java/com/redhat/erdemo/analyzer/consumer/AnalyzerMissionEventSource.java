@@ -19,8 +19,6 @@ import io.reactivex.Flowable;
 
 import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -54,8 +52,31 @@ public class AnalyzerMissionEventSource {
     @Outgoing("mission-enhanced-event")
     @Broadcast
     public String process(String payload) {
-	log.info("Processing 'topic-mission-event' for analytics service "+payload);
-        return payload;
+
+	log.info("Processing payload "+payload+ "\n");
+
+	JsonObject json = new JsonObject(payload);
+	JsonObject jsonChildObject = (JsonObject)json.getJsonObject("body");
+	    
+        String missionId = jsonChildObject.getString("id");
+
+	log.info("Processing mission "+missionId+ "\n");
+
+	String incidentId = jsonChildObject.getString("incidentId");
+	String responderId = jsonChildObject.getString("responderId");
+
+	log.info("Incident ID= "+incidentId+" ResponderId= "+responderId+ "\n");
+
+	// Call incidentById
+	IncidentResource incidentResource = new IncidentResource();
+	Incident incident = incidentResource.incidentById(incidentId);
+
+	//Call responder/{id}
+	ResponderResource responderResource = new ResponderResource();
+	Responder responder = responderResource.responder(Long.parseLong(responderId));
+
+
+	return payload;
     }
     
     // Handles incoming Kafka events - this code will change when Knative Eventing is introduced
@@ -97,17 +118,6 @@ public class AnalyzerMissionEventSource {
     //         }
     //         return message.ack();
     //     });
-    // }
-
-    // private Flowable<String> publishToKafka() {               
-
-    //     try {
-    //         objJson = new ObjectMapper().writeValueAsString(analyzer);
-    //     } catch (JsonProcessingException e) {
-    //         log.error("Error serializing message to class Analyzer", e);
-    //     }
-
-    //     return Flowable.interval(5, TimeUnit.SECONDS).map(tick -> getObjJson());
     // }
     
 }
