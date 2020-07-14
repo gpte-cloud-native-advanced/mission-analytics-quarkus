@@ -1,0 +1,15 @@
+Apiversion: serving.knative.dev/v1alpha1 # Current version of Knative
+kind: Service
+metadata:
+  name: mission-analytics-serverless-quarkus # The name of the app
+spec:
+  template:
+    metadata:
+      name: mission-analytics-serverless-quarkus-hello
+    spec:
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/user2-er-demo/mission-analytics-service-quarkus@sha256:015f92e2fb8c7fa9f2f6
+4d6f7b2307007bf19c89b39c682adc7b1e1ec6f92278 # The URL to the image of the app
+          env:
+            - name: MESSAGE_PREFIX # The environment variable printed out by the sample app
+              value: "hello"

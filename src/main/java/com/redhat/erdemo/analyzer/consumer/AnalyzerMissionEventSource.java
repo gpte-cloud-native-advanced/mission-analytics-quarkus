@@ -19,6 +19,7 @@ import io.reactivex.Flowable;
 
 import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.ws.rs.core.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,13 +42,17 @@ public class AnalyzerMissionEventSource {
 
     private final static Logger log = LoggerFactory.getLogger(AnalyzerMissionEventSource.class);
 
-    //    @Inject
+    @Inject
+    @RestClient
+    IncidentResource incidentResource;
+
+    @Inject
+    @RestClient
+    ResponderResource responderResource;
+    
     Analyzer analyzer=null;
     String objJson = "";
-    private static final double CONVERSION_RATE = 70;
     
-    private String getObjJson() { return objJson;}
-
     @Incoming("mission-event")
     @Outgoing("mission-enhanced-event")
     @Broadcast
@@ -68,11 +73,9 @@ public class AnalyzerMissionEventSource {
 	log.info("Incident ID= "+incidentId+" ResponderId= "+responderId+ "\n");
 
 	// Call incidentById
-	IncidentResource incidentResource = new IncidentResource();
 	Incident incident = incidentResource.incidentById(incidentId);
 
 	//Call responder/{id}
-	ResponderResource responderResource = new ResponderResource();
 	Responder responder = responderResource.responder(Long.parseLong(responderId));
 
 

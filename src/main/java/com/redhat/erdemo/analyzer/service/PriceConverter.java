@@ -1,4 +1,4 @@
-package org.acme.kafka;
+package com.redhat.erdemo.analyzer.service;
 
 import javax.enterprise.context.ApplicationScoped;
 
