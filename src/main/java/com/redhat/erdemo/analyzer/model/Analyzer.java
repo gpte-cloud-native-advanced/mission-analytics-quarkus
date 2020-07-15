@@ -166,6 +166,21 @@ public class Analyzer {
             return this;
         }
 
+        public Builder responderId(String responderId) {
+            analyzer.responderId = responderId;
+            return this;
+        }
+
+        public Builder responderName(String responderName) {
+            analyzer.responderName = responderName;
+            return this;
+        }
+
+        public Builder responderPhoneNumber(String responderPhoneNumber) {
+            analyzer.responderPhoneNumber = responderPhoneNumber;
+            return this;
+        }
+
         public Analyzer build() {
             return analyzer;
         }

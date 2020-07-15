@@ -73,53 +73,26 @@ public class AnalyzerMissionEventSource {
 
 	// Call incidentById
 	Incident incident = incidentService.incidentById(incidentId);
-
+	Integer numberOfPeople = incident.getNumberOfPeople();
+	
 	//Call responder/{id}
 	Responder responder = responderService.responder(Long.parseLong(responderId));
+	String responderName = responder.getName();
+	
+	//Pick elements from incident and responder and build Analyzer
+	analyzer = new Analyzer.Builder(missionId).incidentId(incidentId).numberOfPeople(numberOfPeople).responderId(responderId).responderName(responderName).build();
 
-
-	return payload;
+	// Convert analyzer object to JSON string
+	ObjectMapper mapper = new ObjectMapper();
+	String outboundPayload = "";
+	try {
+	    outboundPayload = mapper.writeValueAsString(analyzer);
+	    log.info("ResultingJSONstring = " + outboundPayload);
+	} catch (JsonProcessingException e) {
+             e.printStackTrace();
+	}
+	// to integrate Knative eventing, setup a broker/trigger and send events
+	
+	return outboundPayload;
     }
-    
-    // Handles incoming Kafka events - this code will change when Knative Eventing is introduced
-    // @Incoming("topic-mission-event")
-    // @Acknowledgment(Acknowledgment.Strategy.MANUAL)
-    // public CompletionStage<CompletionStage<Void>> onMessage(IncomingKafkaRecord<String, String> message) {
-    //     return CompletableFuture.supplyAsync(() -> {
-    //         try {
-    //             JsonObject json = new JsonObject(message.getPayload());
-    //             String missionId = json.getString("missionId");
-
-    //             if (missionId != null) /* && "MOVING".equalsIgnoreCase(status))*/ {
-
-    // 		    log.info("Processing 'topic-mission-event' for analytics service " + missionId);
-
-    // 		    //Call incidentById(@PathParam("id") String incidentId) 
-    // 		    IncidentResource incidentResource = new IncidentResource();
-    // 		    Incident incident = incidentResource.incidentById(json.getString("incidentId"));
-
-    // 		    // //Call /responder/{id}
-    // 		    ResponderResource responderResource = new ResponderResource();
-    // 		    Responder responder = responderResource.responder(json.getLong("responderId"));
-
-    // 		    String incidentId = json.getString("incidentId");
-    // 		    String responderId = json.getString("responderId");
-    // 		    BigDecimal lat = json.getDouble("lat") != null ? BigDecimal.valueOf(json.getDouble("lat")) : null;
-    // 		    BigDecimal lon = json.getDouble("lon") != null ? BigDecimal.valueOf(json.getDouble("lon")) : null;
-    // 		    analyzer = new Analyzer.Builder(responderId).latitude(lat).longitude(lon).build();
-    // 		    // log.debug("Processing 'ResponderUpdateLocationEvent' message for responder '" + responder.getId()
-    //                 //        + "' from topic:partition:offset " + message.getTopic() + ":" + message.getPartition()
-    // 		    //      + ":" + message.getOffset());
-
-    // 		    // Knative Eventing option: write to an Eventing channel, using a REST call and the channel internally will post that event to a Knative broker or service
-		    
-    //             }
-
-    //         } catch (Exception e) {
-    //             log.warn("Unexpected message structure: " + message.getPayload());
-    //         }
-    //         return message.ack();
-    //     });
-    // }
-    
 }
