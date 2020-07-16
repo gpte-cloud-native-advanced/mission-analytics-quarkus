@@ -5,15 +5,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import com.redhat.erdemo.analyzer.model.Responder;
 import com.redhat.erdemo.analyzer.model.Analyzer;
 import com.redhat.erdemo.analyzer.model.Incident;
 import com.redhat.erdemo.analyzer.rest.IncidentService;
 import com.redhat.erdemo.analyzer.rest.ResponderService;
-import io.smallrye.reactive.messaging.kafka.IncomingKafkaRecord;
+
 import io.vertx.core.json.JsonObject;
 import io.reactivex.Flowable;
 
@@ -21,12 +21,19 @@ import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.MediaType;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redhat.erdemo.analyzer.message.Message;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.operators.multi.processors.UnicastProcessor;
+import io.smallrye.reactive.messaging.kafka.IncomingKafkaRecord;
 import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 import io.smallrye.reactive.messaging.annotations.Broadcast;
 import org.apache.commons.lang3.tuple.ImmutablePair;

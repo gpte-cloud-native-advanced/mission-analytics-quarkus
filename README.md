@@ -21,6 +21,17 @@ revision.serving.knative.dev/mission-analytics-serverless-quarkus-hello   missio
 route.serving.knative.dev/mission-analytics-serverless-quarkus   http://mission-analytics-serverless-quarkus-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com   True
 
 
+To create Knative eventing:
+$ oc create namespace knative-eventing
+$ oc create -f eventing.yml
+$ oc get knativeeventing.operator.knative.dev/knative-eventing \
+  -n knative-eventing \
+  --template='{{range .status.conditions}}{{printf "%s=%s\n" .type .status}}{{end}}'
+$ $ oc get pods -n knative-eventing
+
+https://knative.dev/development/install/any-kubernetes-cluster/
+
+
 To create Kafka source::
 apiVersion: sources.knative.dev/v1alpha1
 kind: KafkaSource
