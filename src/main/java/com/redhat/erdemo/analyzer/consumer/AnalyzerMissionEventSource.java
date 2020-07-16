@@ -37,7 +37,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@ApplicationScoped
+@Path("/")
+@Singleton
 public class AnalyzerMissionEventSource {
 
     private final static Logger log = LoggerFactory.getLogger(AnalyzerMissionEventSource.class);
@@ -52,10 +53,10 @@ public class AnalyzerMissionEventSource {
     
     Analyzer analyzer=null;
     
-    @Incoming("mission-event")
-    @Outgoing("mission-enhanced-event")
-    @Broadcast
-    public String process(String payload) {
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String handleCloudEvent(String payload) {
 
 	log.info("Processing payload "+payload+ "\n");
 
@@ -78,6 +79,8 @@ public class AnalyzerMissionEventSource {
 	//Call responder/{id}
 	Responder responder = responderService.responder(Long.parseLong(responderId));
 	String responderName = responder.getName();
+
+	log.info("numberOfPeople = "+numberOfPeople+" and responderName = "+responderName);
 	
 	//Pick elements from incident and responder and build Analyzer
 	analyzer = new Analyzer.Builder(missionId).incidentId(incidentId).numberOfPeople(numberOfPeople).responderId(responderId).responderName(responderName).build();
