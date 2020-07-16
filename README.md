@@ -18,4 +18,25 @@ NAME                                                                     LATESTC
 configuration.serving.knative.dev/mission-analytics-serverless-quarkus   mission-analytics-serverless-quarkus-hello   mission-analytics-serverless-quarkus-hello   True    
 service.serving.knative.dev/mission-analytics-serverless-quarkus   http://mission-analytics-serverless-quarkus-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com   mission-analytics-serverless-quarkus-hello   mission-analytics-serverless-quarkus-hello   True    
 revision.serving.knative.dev/mission-analytics-serverless-quarkus-hello   mission-analytics-serverless-quarkus   mission-analytics-serverless-quarkus-hello   1            True    
-route.serving.knative.dev/mission-analytics-serverless-quarkus   http://mission-analytics-serverless-quarkus-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com   True    
+route.serving.knative.dev/mission-analytics-serverless-quarkus   http://mission-analytics-serverless-quarkus-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com   True
+
+
+To create Kafka source::
+apiVersion: sources.knative.dev/v1alpha1
+kind: KafkaSource
+metadata:
+  name: kafka-source
+spec:
+  bootstrapServers:
+   - kafka-cluster-kafka-bootstrap:9092
+  topics:
+   - topic-mission-event
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: mission-analytics-serverless-quarkus-hello
+
+
+To create Broker and Trigger::
+
