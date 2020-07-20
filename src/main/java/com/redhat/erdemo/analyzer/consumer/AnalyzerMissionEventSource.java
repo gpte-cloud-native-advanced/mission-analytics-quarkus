@@ -26,6 +26,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -65,6 +68,7 @@ public class AnalyzerMissionEventSource {
     @Produces(MediaType.APPLICATION_JSON)
     public String handleCloudEvent(String payload) {
 
+	log.info("July 20th version");
 	log.info("Processing payload "+payload+ "\n");
 
 	JsonObject json = new JsonObject(payload);
@@ -103,6 +107,34 @@ public class AnalyzerMissionEventSource {
 	}
 
 	return outboundPayload;
+    }
+
+
+    @POST
+    @Path("/")
+    public Response eventingEndpoint(@Context HttpHeaders httpHeaders,
+            String cloudEventJSON) {
+        log.info("ExampleResource's @POST method invoked.");
+
+	//        outputEnv();
+
+
+        log.info("ce-id=" + httpHeaders.getHeaderString("ce-id"));
+        log.info(
+                "ce-source=" + httpHeaders.getHeaderString("ce-source"));
+        log.info("ce-specversion="
+                + httpHeaders.getHeaderString("ce-specversion"));
+        log.info("ce-time=" + httpHeaders.getHeaderString("ce-time"));
+        log.info("ce-type=" + httpHeaders.getHeaderString("ce-type"));
+        log.info(
+                "content-type=" + httpHeaders.getHeaderString("content-type"));
+        log.info("content-length="
+                + httpHeaders.getHeaderString("content-length"));
+
+        log.info("POST:" + cloudEventJSON);
+
+        return Response.status(Status.OK).entity("{\"hello\":\"world\"}")
+                .build();
     }
     
 }
