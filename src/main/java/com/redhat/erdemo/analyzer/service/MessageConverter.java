@@ -8,11 +8,11 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import io.smallrye.reactive.messaging.annotations.Broadcast;
 
 /**
- * A bean consuming data from the "prices" Kafka topic and applying some conversion.
+ * A bean consuming data from the "mission-enhanced-event" Kafka topic.
  * The result is pushed to the "my-data-stream" stream which is an in-memory stream.
  */
 @ApplicationScoped
-public class PriceConverter {
+public class MessageConverter {
 
     private static final double CONVERSION_RATE = 0.88;
 

@@ -14,8 +14,8 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 /**
  * A simple resource retrieving the "in-memory" "my-data-stream" and sending the items to a server sent event.
  */
-@Path("/prices")
-public class PriceResource {
+@Path("/messages")
+public class MessageResource {
 
     @Inject
     @Channel("ana-data-stream")

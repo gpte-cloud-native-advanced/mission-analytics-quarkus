@@ -1,0 +1,508 @@
+    1  oc login --token=o4ZfNnaSsqvlWrWOShlcgzdlpMd5QmIhlWMbmZjx06Y --server=https://api.cluster-71e5.71e5.example.opentlc.com:6443
+    2  oc project user2-er-demo
+    3  source /etc/bash_completion.d/oc
+    4  podman login 
+    5  podman login quay.io/nandanj
+    6  podman login quay.io/nandanj -u nandanj -p quaypassword
+    7  oc version
+    8  pwd
+    9  more service.yml 
+   10  oc project
+   11  oc create -f ./service.yml 
+   12  emacs service.yml 
+   13  sudo yum install emacs
+   14  emacs service.yml 
+   15  oc create -f ./service.yml 
+   16  emacs service.yml
+   17  oc create -f ./service.yml 
+   18  oc create -f service.yml
+   19  emacs service.yml
+   20  oc get service
+   21  emacs service.yml
+   22  oc create -f service.yml
+   23  emacs greeter-service.yml
+   24  oc create -f greeter-service.yml 
+   25  oc get knative
+   26  oc delete routes.serving.knative.dev greeter-yaml 
+   27  oc delete routes.serving.knative.dev mission-analytics-serverless-quarkus 
+   28  oc get knative
+   29  oc delete knative
+   30  oc get knative
+   31  oc delete knative --all
+   32  oc create -f greeter-service.yml 
+   33  oc create -f service.yml 
+   34  diff service.yml greeter-service.yml 
+   35  emacs service.yml
+   36  oc create -f service.yml 
+   37  emacs service.yml greeter-service.yml 
+   38  diff service.yml greeter-service.yml 
+   39  oc create -f service.yml 
+   40  oc get knative
+   41  diff service.yml greeter-service.yml 
+   42  oc delete knative
+   43  oc delete knative --all
+   44  emacs service.yml greeter-service.yml 
+   45  oc get sa
+   46  oc get secret
+   47  oc get secret quay-secret
+   48  emacs service.yml
+   49  oc create -f service.yml 
+   50  emacs service.yml
+   51  oc create -f service.yml 
+   52  oc get knative
+   53  oc get revision
+   54  oc get revisions.serving.knative.dev -o yaml
+   55  oc edit sa mission-analytics-service-quarkus 
+   56  emacs service.yml
+   57  oc delete knative --all
+   58  oc create -f service.yml 
+   59  oc get knative
+   60  more service.yml
+   61  oc get sa mission-
+   62  oc get sa mission-analytics-service-quarkus -o yaml
+   63  oc get secret -o yaml
+   64  oc get secret quay-secret -o yaml
+   65  oc get revisions.serving.knative.dev -o yaml
+   66  ls
+   67  more service.yml
+   68  oc delete knative
+   69  oc delete knative --all
+   70  emacs service.yml
+   71  oc create -f service.yml 
+   72  oc get knative
+   73  oc get revisions.serving.knative.dev -o yaml
+   74  oc login --token=6_4ddataiy5Ec_G2SOb5WsgBsnHjKO2ELmlAswogpgU --server=https://api.cluster-71e5.71e5.example.opentlc.com:6443
+   75  pwd
+   76  ls
+   77  emacs greeter-service.yml 
+   78  ls
+   79  rm '#greeter-service.yml#' 
+   80  rm service.yml~
+   81  oc get knative
+   82  oc delete knative
+   83  oc delete knative --all
+   84  more service.yml 
+   85  oc create -f service.yml 
+   86  oc get knative
+   87  oc get routes.serving.knative.dev 
+   88  source /etc/bash_completion.d/oc 
+   89  oc get routes.serving.knative.dev -o yaml
+   90  oc get knative
+   91  oc get service.serving.knative.dev
+   92  oc get service.serving.knative.dev -o yaml
+   93  oc delete knative --all
+   94  more service.yml 
+   95  oc new-project user2-serverless
+   96  oc create -f service.yml 
+   97  oc get routes.serving.knative.dev -o yaml
+   98  oc get routes.serving.knative.dev 
+   99  oc get knative
+  100  more service.yml 
+  101  oc delete knative --all
+  102  skopeo copy docker://${REGISTRY}/user2-er-demo/mission-analytics-service-quarkus:1.0-SNAPSHOT docker://quay.io/nandanj/mission-analytics-service-quarkus:latest --dest-creds nandanj:quaypassword
+  103  export REGISTRY=default-route-openshift-image-registry.apps.$(oc whoami --show-server | cut -d. -f2- | cut -d: -f1)
+  104  echo ${REGISTRY}
+  105  skopeo copy docker://${REGISTRY}/user2-er-demo/mission-analytics-service-quarkus:1.0-SNAPSHOT docker://quay.io/nandanj/mission-analytics-serverless-quarkus:latest --dest-creds nandanj:quaypassword
+  106  podman login quay.io/nandanj -u nandanj -p quaypassword
+  107  skopeo copy docker://${REGISTRY}/user2-er-demo/mission-analytics-service-quarkus:1.0-SNAPSHOT docker://quay.io/nandanj/mission-analytics-serverless-quarkus:latest --dest-creds nandanj:quaypassword
+  108  podman login -u $(oc whoami) -p $(oc whoami -t) ${REGISTRY}
+  109  skopeo copy docker://${REGISTRY}/user2-er-demo/mission-analytics-service-quarkus:1.0-SNAPSHOT docker://quay.io/nandanj/mission-analytics-serverless-quarkus:latest --dest-creds nandanj:quaypassword
+  110  skopeo copy docker://${REGISTRY}/user2-er-demo/mission-analytics-service-quarkus:1.0-SNAPSHOT docker://quay.io/nandanj/mission-analytics-service-quarkus:latest --dest-creds nandanj:quaypassword
+  111  oc project
+  112  oc get knative
+  113  more service.yml 
+  114  emacs service.yml 
+  115  oc create -f ./service.yml 
+  116  oc get knative
+  117  oc get routes.serving.knative.dev 
+  118  oc get routes.serving.knative.dev -o yaml
+  119  oc get knative
+  120  oc get revisions.serving.knative.dev -o yaml
+  121  oc delete knative --all
+  122  oc delete project user2-serverless 
+  123  oc get service 
+  124  oc project user2-er-demo 
+  125  oc get svc mission-analytics-service-quarkus 
+  126  more service.yml
+  127  oc get all | grep mission-analytics
+  128  oc delete deployment mission-analytics-service-quarkus
+  129  oc delete deploymentconfigs.apps.openshift.io mission-analytics-service-quarkus
+  130  clear
+  131  oc get all | grep mission-analytics
+  132  oc delete service mission-analytics-service-quarkus 
+  133  oc delete route mission-analytics-service-quarkus 
+  134  clear
+  135  oc get all | grep mission-analytics
+  136  oc create -f service.yml 
+  137  oc get knative
+  138  oc get po -w
+  139  clear
+  140  oc get po | grep mission-ana
+  141  oc get po | grep mission
+  142  oc get po -w
+  143  oc get pods -w | grep mission-ana
+  144  oc get knative
+  145  oc get po
+  146  oc get pods -w | grep mission-ana
+  147  oc get build
+  148  more service.yml
+  149  oc get po | grep mission-anna
+  150  oc get po | grep mission-ana
+  151  oc get knative
+  152  oc get po | grep mission-ana
+  153  oc logs -f mission-analytics-service-quarkus-1-jfrd2 
+  154  oc login -u opentlc-mgr -p r3dh4t1!
+  155  oc get po | grep disaster-s
+  156  emacs ~/.bashrc 
+  157  exit
+  158  source /etc/bash_completion.d/oc
+  159  emacs .bashrc
+  160  oc project
+  161  oc delete pod user2-disaster-service-1-djj74 
+  162  oc get po | grep mission-ana
+  163  oc get po | grep disaster-s
+  164  oc logs -f mission-analytics-service-quarkus-2-v8xlk 
+  165  alias gma 'oc get pods | grep mission-ana'
+  166  alias gma='oc get pods | grep mission-ana'
+  167  gma
+  168  oc logs mission-analytics-service-quarkus-4-7kjnf 
+  169  gma
+  170  oc logs -f $(oc get pod | grep mission-ana | grep running | awk '{print $1}')
+  171  oc get pod | grep mission-ana | grep running | awk '{print $1}
+  172  oc get pod | grep mission-ana | grep running | awk '{print $1}'
+  173  oc get pod | grep mission-ana | grep Running | awk '{print $1}'
+  174  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  175  oc get route incident-service 
+  176  oc status
+  177  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  178  curl http://incident-service-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com/incidents
+  179  curl http://incident-service-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com/incident/2dc3a1e5-6003-4417-8d29-92cb61348f19
+  180  curl http://incident-service-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com/incidents/incident/2dc3a1e5-6003-4417-8d29-92cb61348f19
+  181  oc get route responder-service 
+  182  curl http://responder-service-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com/responder/377
+  183  gma
+  184  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  185  gma
+  186  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  187  curl http://incident-service-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com/incidents/incident/2dc3a1e5-6003-4417-8d29-92cb61348f19
+  188  curl http://incident-service-user2-er-demo.apps.cluster-71e5.71e5.example.opentlc.com/incidents/
+  189  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  190  oc get svc mission-analytics-service-quarkus -o yaml
+  191  oc get route
+  192  oc get po | grep mission
+  193  oc get svc
+  194  oc get svc | grep mission
+  195  oc expose svc mission-analytics-service-quarkus 
+  196  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  197  oc login -u opentlc-mgr -p r3dh4t1!
+  198  oc create -f kafka-channel.yaml 
+  199  more kafka-channel.yaml
+  200  oc create -f basic-channel.yaml 
+  201  emacs nats-channel.yaml
+  202  oc create -f nats-channel.yaml 
+  203  oc get messaging.knative.dev
+  204  oc get api messaging.knative.dev
+  205  oc apiresources
+  206  oc api-resources
+  207  oc api-resources messaging.knative.dev
+  208  oc api-resources knative
+  209  oc api-resources | grep knative
+  210  oc api-resources channels
+  211  oc api-resources -h
+  212  oc api-resource --api-group=messaging.knative.dev
+  213  oc api-resources --api-group=messaging.knative.dev
+  214  oc create -f another-kc.yaml 
+  215  oc project knative-eventing 
+  216  oc get kafkachannel
+  217  oc create -f another-kc.yaml 
+  218  oc create -f kafka-channel.yaml 
+  219  oc get inmemorychannel
+  220  oc get cm
+  221  oc project
+  222  oc project user2-er-demo 
+  223  oc get cm | grep kafka
+  224  oc delete cm config-kafka 
+  225  oc project knative-eventing 
+  226  more kafka-channel.yaml
+  227  oc create -f my-kafka-channel.yaml 
+  228  oc create -f kafka-cm.yml 
+  229  oc create -f my-kafka-channel.yaml 
+  230  history | grep REGISTRY
+  231  oc status
+  232  oc login -u opentlc-mgr -p r3dh4t1!
+  233  export REGISTRY=default-route-openshift-image-registry.apps.$(oc whoami --show-server | cut -d. -f2- | cut -d: -f1)
+  234  echo $REGISTRY 
+  235   podman login -u $(oc whoami) -p $(oc whoami -t) ${REGISTRY}
+  236  alias sk_cp="skopeo copy docker://${REGISTRY}/user2-er-demo/mission-analytics-service-quarkus:1.0-SNAPSHOT docker://quay.io/nandanj/mission-analytics-serverless-quarkus:latest --dest-creds nandanj:quaypassword"
+  237  oc get is mission-analytics-service-quarkus 
+  238  oc get image | grep mission-ana
+  239  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  240  ls
+  241  rm *~
+  242  ls
+  243  more service.yml 
+  244  oc get knative
+  245  oc get po | grep serverless
+  246  oc delete knative --all
+  247  sk_cp
+  248  alias sk_cp
+  249  emacs ~/.bashrc
+  250  source ~/.bashrc
+  251  alias sk_cp
+  252  emacs ~/.bashrc
+  253  source ~/.bashrc
+  254  alias sk_cp
+  255  sk_cp 
+  256  oc get knative
+  257  more service.yml 
+  258  podman login quay.io/nandanj -u nandanj -p quaypassword
+  259  oc create -f service.yml 
+  260  oc get knative -w
+  261  oc get knative
+  262  oc get po | grep mission-ana
+  263  oc get deployment
+  264  oc get deployment -w
+  265  oc get deployment mission-analytics-serverless-quarkus-hello-deployment -o yaml
+  266  oc get po | grep mission-ana
+  267  oc get knative
+  268  oc get deployment | grep mission-analytics
+  269  oc get knative
+  270  oc delete knative --all
+  271  oc get deployment
+  272  oc delete dc mission-analytics-service-quarkus 
+  273  oc get po | grep mission-ana
+  274  oc get svc mission-analytics-service-quarkus 
+  275  oc get all | grep mission-analytics-service-quarkus
+  276  oc delete service mission-analytics-service-quarkus 
+  277  oc create -f service.yml 
+  278  oc get knative
+  279  oc get knative -w
+  280  oc get routes.serving.knative.dev 
+  281  clear
+  282  oc get knative
+  283  oc get po mission-analytics-serverless-quarkus-hello-deployment-7b557cjr4 
+  284  oc logs mission-analytics-serverless-quarkus-hello-deployment-7b557cjr4 
+  285  oc logs mission-analytics-serverless-quarkus-hello-deployment-7b557cjr4 -c user-container 
+  286  oc logs -f mission-analytics-serverless-quarkus-hello-deployment-7b557cjr4 -c user-container 
+  287  oc get po mission-analytics-serverless-quarkus-hello-deployment-7b557cjr4 
+  288  oc get po | grep mission
+  289  oc get po -w | grep mission-ana
+  290  oc get knative
+  291  oc get deployment mission-analytics-serverless-quarkus-hello-deployment 
+  292  oc get deployment mission-analytics-serverless-quarkus-hello-deployment -o yaml
+  293  oc get deployment mission-analytics-serverless-quarkus-hello-deployment 
+  294  oc get deployment -w mission-analytics-serverless-quarkus-hello-deployment 
+  295  oc get po | grep mission-ana
+  296  oc get dc
+  297  oc get rs
+  298  oc rollout latest rc/mission-analytics-serverless-quarkus-hello-deployment-7b55fc769d 
+  299  oc get deploymentconfigs.apps.openshift.io 
+  300  oc get deployment
+  301  oc rollout latest deployment/mission-analytics-serverless-quarkus-hello-deployment
+  302  oc scale deployment mission-analytics-serverless-quarkus-hello-deployment --replicas=2
+  303  oc get po -w | grep mission-ana
+  304  oc get po
+  305  oc get po -w | grep mission-ana
+  306  oc get deployment mission-analytics-serverless-quarkus-hello-deployment 
+  307  oc project knative-eventing 
+  308  oc get configmap
+  309  ls
+  310  emacs kafka-channel-cm.yml
+  311  oc get configmap config-br-default-channel 
+  312  oc get configmap config-br-default-channel -o yaml
+  313  ls
+  314  oc create -f kafka-channel-cm.yml 
+  315  oc get cm
+  316  oc project user2-er-demo 
+  317  oc create -f - <<EOF
+  318  apiVersion: eventing.knative.dev/v1
+  319  kind: Broker
+  320  metadata:
+  321    annotations:
+  322      eventing.knative.dev/broker.class: MTChannelBasedBroker
+  323    name: kafka-backed-broker
+  324    namespace: default
+  325  spec:
+  326    config:
+  327      apiVersion: v1
+  328      kind: ConfigMap
+  329      name: kafka-channel
+  330      namespace: knative-eventing
+  331  EOF
+  332  oc get eventing.knative.dev
+  333  emacs kafka-broker.yml
+  334  oc create -f kafka-broker.yml
+  335  emacs kafka-broker.yml
+  336  oc create -f kafka-broker.yml
+  337  oc get eventing.knative.dev
+  338  oc label namespace user2-er-demo knative-eventing-injection=enabled
+  339  watch oc --namespace user2-er-demo get broker
+  340  oc get broker
+  341  oc get po | grep broker
+  342  oc get po default-broker-filter-b5967fd6c-852z2 -o yaml
+  343  emacs trigger.yml
+  344  oc get service
+  345  emacs trigger.yml 
+  346  oc get po | grep broker
+  347  oc project
+  348  ls
+  349  more kafka-broker.yml
+  350  oc get kafka-backed-broker
+  351  oc get broker kafka-backed-broker
+  352  oc get broker default 
+  353  oc get broker default -o yaml
+  354  emacs kafka-broker.yml
+  355  oc get configmap 
+  356  ls
+  357  more kafka-channel-cm.yml 
+  358  oc get cm kafka-channel
+  359  oc get messaging.knative.dev kafka-channel
+  360  oc get configmap kafka-channel
+  361  oc project knative-eventing 
+  362  oc get cm
+  363  oc delete cm kafka-channel 
+  364  oc project
+  365  oc project user2-er-demo 
+  366  emacs kafka-cm.yml
+  367  oc create -f kafka-cm.yml 
+  368  oc get cm
+  369  oc get cm | grep kafka
+  370  ls
+  371  more kafka-channel-cm.yml 
+  372  rm *~
+  373  ls
+  374  rm kafka-channel-cm.yml 
+  375  emacs kafka-channel.yml
+  376  oc create -f kafka-channel.yml
+  377  emacs kafka-channel.yml
+  378  oc create -f kafka-channel.yml
+  379  emacs kafka-channel.yml
+  380  oc create -f kafka-channel.yml
+  381  emacs kafka-channel.yml
+  382  oc create -f kafka-channel.yml
+  383  rm kafka-channel.yml
+  384  emacs kafka-channel.yml
+  385  oc create -f kafka-channel.yml
+  386  mv kafka-channel.yml kafka-channel.yaml
+  387  oc create -f kafka-channel.yaml 
+  388  emacs kafka-channel.yaml
+  389  oc create -f kafka-channel.yaml 
+  390  emacs kafka-channel.yaml
+  391  emacs basic-channel.yaml
+  392  oc create -f basic-channel.yaml 
+  393  emacs kafka-channel.yaml
+  394  oc logs -f $(oc get pod | grep mission-ana | grep Running | awk '{print $1}')
+  395  oc get all | grep mission-analytics
+  396  oc delete pod mission-analytics-service-quarkus-1-hm59q 
+  397  oc delete service mission-analytics-service-quarkus 
+  398  oc get po | grep mission-analytics
+  399  pwd
+  400  ls
+  401  ls '*
+'
+  402  rm '#.bashrc#' '#kafka-channel.yaml#' *~
+  403  ls
+  404  more kafka-broker.yml 
+  405  oc project
+  406  oc get cm | grep kafka
+  407  oc get cm config-kafka -o yaml
+  408  oc get cm -n knative-eventing
+  409  oc get cm -n knative-eventing | grep kafka
+  410  ls
+  411  more kafka-channel.yaml 
+  412  oc project knative-eventing 
+  413  more kafka-cm.yml 
+  414  oc create -f kafka-cm.yml 
+  415  oc get cm config-kafka
+  416  oc get cm config-kafka -n user2-er-demo 
+  417  oc project user2-er-demo 
+  418  ls
+  419  more kafka-channel.yaml 
+  420  oc create -f kafka-channel.yaml 
+  421  emacs kafka-channel.yaml
+  422  oc create -f kafka-channel.yaml 
+  423  oc project
+  424  $ oc create namespace knative-eventing
+  425  oc create namespace knative-eventing
+  426  ls
+  427  rm *~
+  428  mkdir configs
+  429  mv *.yml configs/
+  430  mv *.yaml configs/
+  431  cd configs/
+  432  ls
+  433  emacs eventing.yml
+  434  oc create -f eventing.yml 
+  435  oc get knativeeventing.operator.knative.dev/knative-eventing   -n knative-eventing   --template='{{range .status.conditions}}{{printf "%s=%s\n" .type .status}}{{end}}'
+  436  oc get pods -n knative-eventing 
+  437  oc get cm
+  438  oc get cm | grep config
+  439  oc project
+  440  oc project knative-eventing 
+  441  oc get cm
+  442  oc get crds
+  443  oc get crds | grep messaging.knative.dev
+  444  oc get crd channels.messaging.knative.dev -o yaml
+  445  curl -L "https://storage.googleapis.com/knative-nightly/eventing-contrib/latest/kafka-channel.yaml"  | sed 's/REPLACE_WITH_CLUSTER_URL/kafka-cluster-kafka-bootstrap.user2-er-demo:9092/'  | oc apply --filename -
+  446  oc project
+  447  oc project user2-er-demo 
+  448  kubectl apply --filename https://storage.googleapis.com/knative-nightly/eventing/latest/mt-channel-broker.yaml
+  449  oc get broker
+  450  oc get broker default -o yaml
+  451  oc get kafkachannels.messaging.knative.dev 
+  452  oc get cm | grep kafka
+  453  oc get cm config-kafka -o yaml
+  454  oc create -f - <<EOF
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  annotations:
+    eventing.knative.dev/broker.class: MTChannelBasedBroker
+  name: kafka-backed-broker
+  namespace: default
+spec:
+  config:
+    apiVersion: v1
+    kind: ConfigMap
+    name: kafka-channel
+    namespace: knative-eventing
+EOF
+
+  455  oc get crd eventtypes.eventing.knative.dev | less
+  456  oc get crd eventtypes.eventing.knative.dev -o yaml | less
+  457  oc create -f kafka-broker.yml 
+  458  oc get broker
+  459  oc create -f kafka-channel.yaml 
+  460  oc get channel
+  461  oc get channels.messaging.knative.dev kafka-channel
+  462  oc get channel
+  463  oc create -f kafka-broker.yml 
+  464  oc get broker
+  465  oc delete broker kafka-backed-broker 
+  466  oc create -f kafka-broker.yml 
+  467  oc get broker
+  468  oc get broker kafka-backed-broker -o yaml
+  469  oc get channel
+  470  oc get channels.messaging.knative.dev kafkachannel.messaging.knative.dev/mission-analytics-kafka-channel 
+  471  oc get channels.messaging.knative.dev mission-analytics-kafka-channel
+  472  oc get channel
+  473  oc delete broker kafka-backed-broker 
+  474  oc create -f kafka-broker.yml 
+  475  oc get broker
+  476  oc get broker kafka-backed-broker -o yaml
+  477  oc get cm
+  478  ls
+  479  oc delete broker kafka-backed-broker 
+  480  oc get cm
+  481  oc create -f kafka-broker.yml 
+  482  oc get broker kafka-backed-broker 
+  483  oc get broker kafka-backed-broker -o yaml
+  484  more kafka-broker.yml
+  485  oc get cm -n knative-eventing | grep config
+  486  oc get cm config-kafka -o yaml -n knative-eventing 
+  487  oc get cm config-kafka -o yaml
+  488  oc delete broker kafka-backed-broker 
+  489  oc create -f kafka-broker.yml 
+  490  oc get broker
+  491  oc get broker kafka-backed-broker -o yaml
+  492  history > ~/cmd.history

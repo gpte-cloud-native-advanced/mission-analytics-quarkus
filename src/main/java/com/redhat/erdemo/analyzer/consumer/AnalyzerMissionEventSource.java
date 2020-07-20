@@ -101,8 +101,7 @@ public class AnalyzerMissionEventSource {
 	} catch (JsonProcessingException e) {
              e.printStackTrace();
 	}
-	// to integrate Knative eventing, setup a broker/trigger and send events
-	
+
 	return outboundPayload;
     }
     
