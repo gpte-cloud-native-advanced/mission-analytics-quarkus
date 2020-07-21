@@ -18,14 +18,13 @@ import javax.ws.rs.core.Response.Status;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import com.redhat.erdemo.analyzer.model.Responder;
 
-@Path("/")
 @RegisterRestClient
 public interface ResponderService {
 
     @GET
     @Path("/responder/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    Responder responder(@PathParam("id") long id);
+    Responder responder(@PathParam("id") String id);
 
 }
 

@@ -25,5 +25,5 @@ public interface IncidentService {
     @GET
     @Path("/incident/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    Incident incidentById(@PathParam("id") String incidentId);
+    Incident incidentById(@PathParam("id") String id);
 }
