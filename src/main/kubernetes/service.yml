@@ -1,14 +1,12 @@
-Apiversion: serving.knative.dev/v1alpha1 # Current version of Knative
+apiVersion: serving.knative.dev/v1alpha1 # Current version of Knative
 kind: Service
 metadata:
   name: mission-analytics-serverless-quarkus # The name of the app
+  serviceAccountName: mission-analytics-service-quarkus
 spec:
   template:
     metadata:
       name: mission-analytics-serverless-quarkus-hello
     spec:
       containers:
-        - image: quay.io/nandanj/mission-analytics-service-quarkus # The URL to the image of the app
-          env:
-            - name: MESSAGE_PREFIX # The environment variable printed out by the sample app
-              value: "hello"
+        - image: quay.io/nandanj/mission-analytics-service-quarkus:latest # The URL to the image of the app

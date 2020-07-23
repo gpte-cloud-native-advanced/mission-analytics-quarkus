@@ -78,18 +78,17 @@ public class AnalyzerMissionEventSource {
     public Response eventingEndpoint(@Context HttpHeaders httpHeaders,
             String cloudEventJSON) {
 
-        log.info("ce-id=" + httpHeaders.getHeaderString("ce-id"));
-        log.info(
+        log.debug("ce-id=" + httpHeaders.getHeaderString("ce-id"));
+        log.debug(
                 "ce-source=" + httpHeaders.getHeaderString("ce-source"));
-        log.info("ce-specversion="
+        log.debug("ce-specversion="
                 + httpHeaders.getHeaderString("ce-specversion"));
-        log.info("ce-time=" + httpHeaders.getHeaderString("ce-time"));
-        log.info("ce-type=" + httpHeaders.getHeaderString("ce-type"));
-        log.info(
+        log.debug("ce-time=" + httpHeaders.getHeaderString("ce-time"));
+        log.debug("ce-type=" + httpHeaders.getHeaderString("ce-type"));
+        log.debug(
                 "content-type=" + httpHeaders.getHeaderString("content-type"));
-        log.info("content-length="
+        log.debug("content-length="
                 + httpHeaders.getHeaderString("content-length"));
-
 
 	JsonObject json = new JsonObject(cloudEventJSON);
 	String messageType = json.getString("messageType");
@@ -100,7 +99,7 @@ public class AnalyzerMissionEventSource {
 
 	if (messageType.equals("MissionCompletedEvent"))
 	    {
-		log.info("Processing mission "+missionId+ "\n");
+		log.debug("Processing mission "+missionId+ "\n");
 
 		String incidentId = jsonChildObject.getString("incidentId");
 		String responderId = jsonChildObject.getString("responderId");
@@ -120,7 +119,7 @@ public class AnalyzerMissionEventSource {
 		Responder responder = responderService.responder(responderId);
 		String responderName = responder.getName();
 
-		log.info("numberOfPeople = "+numberOfPeople+" and responderName = "+responderName);
+		log.debug("numberOfPeople = "+numberOfPeople+" and responderName = "+responderName);
 	
 		//Pick elements from incident and responder and build Analyzer
 		analyzer = new Analyzer.Builder(missionId).incidentId(incidentId).numberOfPeople(numberOfPeople).responderId(responderId).responderName(responderName).build();
@@ -129,16 +128,16 @@ public class AnalyzerMissionEventSource {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 		    outboundPayload = mapper.writeValueAsString(analyzer);
-		    log.info("ResultingJSONstring = " + outboundPayload);
+		    log.debug("ResultingJSONstring = " + outboundPayload);
 		} catch (JsonProcessingException e) {
 		    e.printStackTrace();
 		}
 
-		log.info("outboundPayload = "+outboundPayload);
+		log.debug("outboundPayload = "+outboundPayload);
 		String retVal = publishEnhancedEvent();
 	    }
 	
-        return Response.status(Status.OK).entity("{\"hello\":\"world\"}")
+        return Response.status(Status.OK).entity(outboundPayload)
                 .build();
     }
     
